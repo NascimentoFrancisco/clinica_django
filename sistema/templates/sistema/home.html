@@ -1,0 +1,25 @@
+{% extends 'sistema/base.html' %}
+{% block content %}
+    <h1>Seja bem vindo!</h1>
+    <h3>Faça o login para acessar o seu perfil!</h3>
+        <br>
+        <form action="{% url 'autenticar_cliente' %}" method="post">
+            {% csrf_token %}
+                <div class="mb-3" >
+                    <label for="exampleInputEmail1" class="form-label">Username</label>
+                    <input name="username" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <br>
+            <br>
+        <p class="text-primary">Não possui cadastro? Clique no botão abaixo e se cadastre!</p>
+        <a href="{% url 'cadastrar_cliente'%}">
+            <button type="button" class="btn btn-danger">Cadastrar-se</button>
+        </a>
+        <br>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'sistema/base.html' %}
+
+{% block content %}
+    <table class="table">
+        <tr>
+            <td>
+                <h1>{{agenda.medico}}</h1>
+                Especialidade: {{agenda.medico.especialidade}}<br>
+                Disponível no dia: {{agenda.data}}<br>
+                Horários de disponibilidade:<br>
+                {% for horas in agenda.horarios.all %}
+                    {{horas }}<br/>
+                {% endfor %}
+            </td>
+            {% if user.is_authenticated %}
+                <td>
+                    <a href="{% url 'marcar_consulta' id=agenda.id pk=user.pk %}">
+                        <button type="button" class="btn btn-success">Macar consulta</button>
+                    </a>
+                </td>
+            {% endif %}
+        </tr>
+    </table>
+{% endblock %}

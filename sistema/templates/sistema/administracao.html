@@ -1,0 +1,37 @@
+{% extends 'sistema/base.html' %}
+{% block content %}
+    {% if user.is_authenticated and user.is_superuser%}
+        <h2>ADMINISTRAÇÃO</h2>
+            <strong>Administrador: </strong>{{ adm.first_name }}<br>
+            <strong>Username: </strong> {{ adm.username }}<br>       
+        <table class="table">
+            <tr>
+                <td>
+                    <a href="{% url 'cadastrar_epecialidade' %}">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Cadastrar Epecialidade</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'cadastrar_medico' %}">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Cadastrar Medico</button>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{% url 'inserir_horarios' %}">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Inserir Horarios</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'criar_nova_agenda' %}">
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Criar nova agenda</button>
+                    </a>
+                </td>
+            </tr>
+        </table>
+    {% else %}
+        <h2>Você nao possui permissão para acessar essa página!</h2>
+    {% endif %}
+
+{% endblock %}

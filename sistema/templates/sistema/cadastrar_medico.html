@@ -1,0 +1,15 @@
+{% extends 'sistema/base.html' %}
+{% block content %}
+    {% if user.is_authenticated and user.is_superuser%}
+        <h2>Novo Médico</h2>
+        <form method="POST" class="table" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="save btn btn-success ">Save</button>
+        </form>
+    {% else %}
+        <h2>Você nao possui permissão para acessar essa página!</h2>
+    {% endif %}
+{% endblock %}
