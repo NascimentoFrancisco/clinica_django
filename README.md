@@ -1,5 +1,13 @@
 # Projeto Django Clinica
 
+## Informações sobre o autor
+Autor: Francisco Leite
+
+Discente em Tecnologia em Análise e Desenvolvimento de Sistemas no IFPI
+
+Link para a apresentação do projeto: <https://www.youtube.com/watch?v=Cj-OsFUxZi4>
+
+## Detalhamento
 Nesse projeto iremos criar um sistema web com o Django para uma clínica onde os usuários poderão marcar consultas com um determinado médico de acordo com sua agenda.
 
 Para criação da app django_clinica temos que criar um diretório com o nome que faça referência a aplicação, no caso deste projeto dei o nome de **Clinica** ao diretório. Tenha em mente para execução desse projeto usaremos o ambiente virtual.
