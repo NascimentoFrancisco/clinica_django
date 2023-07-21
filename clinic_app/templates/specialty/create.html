@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Cadastro de especialidade{% endblock %}
+
+{% block content %}
+<div id="content">Cadastro de especialidade</div>
+    <form method="POST" class="table" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <div class="d-flex justify-content-end">
+            <a class="btn-lg btn-default text-danger" href="javascript:history.back()">Cancelar</a>
+            <button type="submit" class="save btn-lg btn-success">Salvar</button>
+        </div>
+    </form>
+{% endblock %}
+
