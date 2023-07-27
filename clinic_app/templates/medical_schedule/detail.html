@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhar agenda{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">Doutor(a): {{ object.doctor.name }}</h5>
+        <h5 class="card-title">Especialidade: {{ object.doctor.specialty.name }}</h5>
+        <h5 class="card-title">CRM: {{ object.doctor.medical_crm }}</h5>
+        <h5 class="card-title">Data: {{ object.date_schedule }}</h5>
+        <h5 class="card-title">Horário: {{ object.available_times }}</h5>
+        <h5 class="card-title">Status: 
+            {% if object.status %}
+                <b class="text-success">Disponível</b>
+            {% else %}
+            <b class="text-danger">Indisponível</b>
+            {% endif %}
+        </h5>
+        {% if user.is_authenticated or user.is_superuser %}
+            <h5 class="card-title">Contatos</h5>
+            <h5 class="card-title">Telefone: {{ object.doctor.phone }}</h5>
+            <h5 class="card-title">Email: {{ object.doctor.email }}</h5>
+            {% if object.status %}
+                <a href="/consultation/create/{{ object.id }}/" class="btn btn-primary">Reservar consulta</a>
+            {% endif %}
+        {% else %}
+        <p class="text-primary">Faça o login ou se cadastre para reservar uma consulta com o(a) médico(a).</p>
+        {% endif %}
+        {% if user.is_authenticated and user.is_superuser %}
+            <a href="/schedule/update/{{ object.id }}/" class="btn btn-primary">Editar</a>
+            <a href="/schedule/delete/{{ object.id }}/" class="btn btn-danger">Excluir</a>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

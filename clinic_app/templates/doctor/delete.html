@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Apgando médico{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>Apagar</h1>
+    </div>
+    <form action="" method="POST">
+        <p>você realmente deseja apagar o(a) médico(a) <b>{{ object }}</b> do sistema?</p>
+        <p class="text-danger">OBS: Ao apagar esse(a) médico(a) de sua lista ela será eliminado de uma vez por todas do sistema sendo assim impossível recuperá-lo(a) novamente.</p>
+        {% csrf_token %}
+        {{ form.as_p }}
+    
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        
+        <a href="javascript:history.back()"> 
+            <button type="button" class="btn btn-outline-danger">Cancelar</button>
+        </a>
+    </form>
+
+{% endblock %}

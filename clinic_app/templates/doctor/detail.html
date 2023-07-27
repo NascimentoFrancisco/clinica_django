@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhando médico{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">Doutor(a): {{ object.name }}</h5>
+        <h5 class="card-title">Especialidade: {{ object.specialty.name }}</h5>
+        <h5 class="card-title">CRM: {{ object.medical_crm }}</h5>
+        {% if user.is_authenticated or user.is_superuser %}
+            <h5 class="card-title">Contatos</h5>
+            <h5 class="card-title">Telefone: {{ object.phone }}</h5>
+            <h5 class="card-title">Telefone: {{ object.email }}</h5>
+            <a href="/schedule/list-available/{{ object.id }}/" class="btn btn-primary">Ver agendas</a>
+        {% else %}
+        <p class="text-primary">Faça o login ou se cadastre para ver mais detalhes e opções do(a) médico(a).</p>
+        {% endif %}
+        {% if user.is_authenticated and user.is_superuser %}
+            <a href="/doctor/update/{{ object.id }}/" class="btn btn-primary">Editar</a>
+            <a href="/doctor/delete/{{ object.id }}/" class="btn btn-danger">Excluir</a>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

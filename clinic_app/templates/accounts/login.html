@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %} 
+<div class="row justify-content-center">
+  <div class="col-md-8 col-md-offset-2"> 
+    <div class="page-header"> 
+        <h1 class="font-weight-light my-4 text-center">Login</h1>
+        {% for error in form.non_field_errors %}
+                  <div class='alert alert-danger'>
+                      {{ error }}
+                  </div>
+        {% endfor %}
+    </div>  
+    <form class="form-horizontal" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email:</label>
+            <input name="username" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Senha:</label>
+            <input name="password" type="password" class="form-control" required>
+        </div>
+        <div class="form-row">
+            <div class="col-md-10 offset-md-1">
+              <div class="form-group mt-0 mb-1">
+                  <button type="submit" class="col-md-12 btn btn-success">Entrar
+                  </button>
+              </div>
+           </div>
+         </div>
+    </form>
+</div>
+<div class="text-center">
+    <div class="small">
+        <a href="/accounts/password-reset/">
+            <h6 class="text-danger">Esqueceu ou deseja redefinir sua senha?</h6>
+        </a>
+    </div>
+</div>            
+{% endblock content %}

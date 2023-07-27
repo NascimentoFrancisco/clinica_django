@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Listagem Pacientes{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-between">
+    <h3>Lista de Pacientes</h3>
+    <div>
+        <form class="d-flex" role="search" method="get">
+            <input class="form-control me-2" name="cpf" type="search" placeholder="CPF" aria-label="cpf">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+    </div>
+</div>
+{% if not object_list %}
+  <div class="alert alert-warning">
+    Ops, nenhum paciente foi encontrado.
+  </div>
+{% else %}
+    {% for patient in object_list %}
+    <div class="mb-3">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Paciente(a): {{ patient.user.name }}</h5>
+            <h5 class="card-title">CPF: {{ patient.patient_cpf }}</h5>
+            <h5 class="card-title">Usuário: {{ patient.user.username }}</h5>
+            <h5 class="card-title">Email: {{ patient.user.email }}</h5>
+            <h5 class="card-title">Telefone: {{ patient.phone }}</h5>
+            {% if patient.user.is_active %}
+                <a href="/accounts/deactivate/{{ patient.user.id }}/" class="btn btn-danger">Desativar</a>
+            {% else %}
+                <a href="/accounts/activate/{{ patient.user.id }}/" class="btn btn-success">Ativar</a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Primeira</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+    
+            <span class="current">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+{% endblock %}

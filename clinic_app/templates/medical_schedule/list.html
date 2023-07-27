@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Listagem de agendas{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-between">
+    <h3>Lista de agendas médicas</h3>
+    {% if user.is_authenticated and user.is_superuser %}
+        <div class="mb-3">
+            <a href="/schedule/create/" class="text-primary" title="Adicionar especialidade">
+                <button type="button" class="btn btn-success">Adicionar</button>
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% if not object_list %}
+  <div class="alert alert-warning">
+    Ops, nenhuma agenda foi cadastrada ainda.
+  </div>
+{% else %}
+    {% for schedule in object_list %}
+    <div class="mb-3">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Sobre o médico:</h5>
+            <p><b>Nome:</b> {{ schedule.doctor.name }} <br>
+            <b>Especialidade:</b> {{ schedule.doctor.specialty }}
+            <p>
+            <h5 class="card-title">Sobre o médico:</h5>
+            <p>
+            <b>Data:</b> {{ schedule.date_schedule }} <br>
+            <b>Horáirio:</b> {{ schedule.available_times }}
+            </p>
+            <a href="/schedule/detail/{{ schedule.id }}/" class="btn btn-primary">Detalhar</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Primeira</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+    
+            <span class="current">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+{% endblock %}

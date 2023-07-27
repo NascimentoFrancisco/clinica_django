@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Dados cadastrais{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Seus dados cadastraris</h5>
+            <p><b>Nome:</b> {{ object.name }} <br>
+                <b>Email:</b> {{ object.email }} <br>
+                <b>Username:</b> {{ object.username }} <br>
+            </p>
+            <a href="/accounts/update/{{ object.id }}/" class="btn btn-primary">Editar dados</a>
+            <a href="/accounts/change-password/" class="btn btn-primary">Mudar senha</a>
+            <a href="/accounts/deactivate/{{ object.id }}/" class="btn btn-primary">Desativar conta</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

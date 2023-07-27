@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhando consulta{% endblock %}
+
+{% block content %}
+<div class="mb-3">
+    <div class="card">
+        <div class="card-body">
+        <h5 class="card-title">Sobre a consulta:</h5>
+        <p><b>Nome:</b> {{ object.doctor_schedule.doctor.name }} <br>
+        <b>Especialidade:</b> {{ object.doctor_schedule.doctor.specialty }}<br>
+        <b>Data:</b> {{ object.doctor_schedule.date_schedule }} <br>
+        <b>Horário:</b> {{ object.doctor_schedule.available_times }} <br>
+        <b>Status:</b> 
+        {% if object.status %}
+            <b class="text-success"> Ativa</b> <br><br>
+            <a href="/consultation/delete/{{ object.id }}/" class="btn btn-danger">Cancelar consulta</a>
+            {% if user.is_authenticated and user.is_superuser %}
+                <a href="/consultation/finish/{{ object.id }}/" class="btn btn-success">Finalizar consulta</a>
+            {% endif %}
+        {% else %}
+            <b class="text-danger"> Finalizada</b>
+            <div class="alert alert-warning">
+                Você não pode cancelar uma consulta que já foi finalizada.
+            </div>
+        {% endif %}
+        </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

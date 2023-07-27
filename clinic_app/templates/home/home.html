@@ -3,13 +3,142 @@
 
 {% block title %}Início{% endblock %}
 
-{% block content %}
-    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-        <h1 class="display-4 fw-normal text-body-emphasis">Área inicial</h1>
-        <p class="fs-5 text-body-secondary">Senja bem vindo a nossa clínica django8 .</p>
-    </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+{% block content %}    
+    {% if user.is_authenticated and not user.is_superuser %}
+      <div class="card text-center">
+        <div class="card-header">
+          Área do paciente
+        </div>
         
-    </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ user.name }}</h5>
+          <p class="card-text">Aproveite as opções disponíveis em nossa plataforma.</p>
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <th>
+                  <div class="card text-center">
+                    <a href="/consultation/list-active/" class="btn btn-primary btn-lg btn-block">Consultas ativas</a>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <div class="card text-center">
+                    <a href="/patient/detail/" class="btn btn-primary btn-lg btn-block">Dados cadastrais</a>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <div class="card text-center">
+                    <a href="/doctor/list/" class="btn btn-primary btn-lg btn-block">Médicos e agendas</a>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <div class="card text-center">
+                    <a href="/consultation/list/" class="btn btn-primary btn-lg btn-block">Todas as consultas</a>
+                  </div>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer text-muted">
+          Cínica django
+        </div>
+      </div>
+    {% elif user.is_authenticated and user.is_superuser %}
+      <div class="container d-flex justify-content-between">
+        <h3>Área administrativa</h3>
+        <div class="mb-3">
+            <a href="/accounts/list/" class="text-primary" title="Adicionar super usuário">
+                <button type="button" class="btn btn-success">Administradores</button>
+            </a>
+        </div>
+      </div>
+
+      <table class="table table-borderless">
+        <tbody>
+          <tr>
+            <th>
+              <div class="card text-center">
+                <a href="/consultation/list-all/" class="btn btn-primary btn-lg btn-block">Consultas</a>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <div class="card text-center">
+                <a href="/specialty/list/" class="btn btn-primary btn-lg btn-block">Especialidades</a>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <div class="card text-center">
+                <a href="/doctor/list/" class="btn btn-primary btn-lg btn-block">Médicos e agendas</a>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <div class="card text-center">
+                <a href="/times/list/" class="btn btn-primary btn-lg btn-block">Horários</a>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <div class="card text-center">
+                <a href="/patient/list/" class="btn btn-primary btn-lg btn-block">Pacientes</a>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <div class="card text-center">
+                <a href="/accounts/detail/{{ user.id }}/" class="btn btn-primary btn-lg btn-block">Dados cadastrais</a>
+              </div>
+            </th>
+          </tr>
+      </table>
+    {% else %}
+      <div class="card text-center">
+        <div class="card-header">
+          Área Inicial
+        </div>
+        
+        <div class="card-body">
+          <h5 class="card-title">{{ user.name }}</h5>
+          <p class="card-text">Aproveite as opções disponíveis em nossa plataforma.</p>
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <th>
+                  <div class="card text-center">
+                    <a href="/schedule/list/" class="btn btn-primary btn-lg btn-block">Agendas</a>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <div class="card text-center">
+                    <a href="/doctor/list/" class="btn btn-primary btn-lg btn-block">Médicos e agendas</a>
+                  </div>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer text-muted">
+          <a href="/accounts/login/" class="btn btn-outline-success">Entrar</a>
+          ou
+          <a href="/patient/create/" class="btn btn-outline-success">Fazer cadastro</a>
+        </div>
+      </div>
+    {% endif %}
 {% endblock %}
 

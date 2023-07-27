@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Ativa e desativar conta{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>Ativação e desativação de conta</h1>
+    </div>
+    <form action="" method="POST">
+        {% if object.is_active %}
+            <p>Você realmente deseja desativar sua conta na plataforma?</p>
+            <p class="text-danger">OBS: Ao desativar sua conta você perderá acesso a todas as suas consultas e histórico na plataforma.</p>
+        {% else %}
+            <p>Você realmente deseja ativar o paciente <b>{{ object.name }}</b> na plataforma?</p>
+            <p class="text-danger">OBS: Ao ativar o paciente ele perderá ter acesso a todas as funcionalidades referentes ao paciente na plataforma.</p>
+        {% endif %}
+            {% csrf_token %}
+        {{ form.as_p }}
+    
+        <button type="submit" class="btn btn-success">Confirmar</button>
+        
+        <a href="javascript:history.back()"> 
+            <button type="button" class="btn btn-outline-danger">Cancelar</button>
+        </a>
+    </form>
+
+{% endblock %}

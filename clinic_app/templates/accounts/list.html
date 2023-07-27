@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Listagem administradores{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-between">
+    <h3>Lista de administradores</h3>
+</div>
+{% if not object_list %}
+  <div class="alert alert-warning">
+    Ops, nenhum administrador foi encontrado.
+  </div>
+{% else %}
+    <div class="container d-flex justify-content-between">
+        <h3>Área administrativa</h3>
+        <div class="mb-3">
+            <a href="/accounts/create/" class="text-primary" title="Adicionar super usuário">
+                <button type="button" class="btn btn-success">Novo administrador</button>
+            </a>
+        </div>
+    </div>
+    {% for admin in object_list %}
+    <div class="mb-3">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Nome: {{ admin.name }}</h5>
+            <h5 class="card-title">Usuário: {{ admin.username }}</h5>
+            <h5 class="card-title">Email: {{ admin.email }}</h5>
+            
+            <a href="/accounts/detail/{{ admin.id }}/" class="btn btn-primary">Detalhar</a>
+            
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Primeira</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+    
+            <span class="current">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+{% endblock %}

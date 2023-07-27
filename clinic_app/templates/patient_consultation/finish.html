@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Cancelando consulta{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>Cancelamento de consulta</h1>
+    </div>
+    <form action="" method="POST">
+        <p>Você realmente deseja finalizar esta consulta?</p>
+        <p class="text-danger">OBS: Ao finalizar esta consulta ela nãao poderá mais ser editada.</p>
+        {% csrf_token %}
+        {{ form.as_p }}
+    
+        <button type="submit" class="btn btn-primary">Confirmar</button>
+        
+        <a href="javascript:history.back()"> 
+            <button type="button" class="btn btn-outline-danger">Cancelar</button>
+        </a>
+    </form>
+
+{% endblock %}

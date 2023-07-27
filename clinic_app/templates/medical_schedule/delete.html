@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Apgando agenda{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>Apagar</h1>
+    </div>
+    <form action="" method="POST">
+        <p>você realmente deseja apagar a agenda <b>{{ object }}</b> do sistema?</p>
+        <p class="text-danger">OBS: Ao apagar esse agenda de sua lista ela será eliminado de uma vez por todas do sistema sendo assim impossível recuperá-la novamente.</p>
+        {% csrf_token %}
+        {{ form.as_p }}
+    
+        <button type="submit" class="btn btn-danger">Excluir</button>
+        
+        <a href="javascript:history.back()"> 
+            <button type="button" class="btn btn-outline-danger">Cancelar</button>
+        </a>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Listagem de consultas{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-between">
+    {% if user.is_authenticated and not user.is_superuser %}
+        <h3>Lista de todas as suas consultas</h3>
+    {% elif user.is_authenticated and user.is_superuser %}
+        <h3>Lista de todas as consultas</h3>
+    {% else %}
+        <h3>Lista de consultas</h3>
+    {% endif %}
+</div>
+{% if not object_list %}
+  <div class="alert alert-warning">
+    Ops, nenhuma consulta foi cadastrada ainda.
+  </div>
+{% else %}
+    {% for consultation in object_list %}
+    <div class="mb-3">
+        <div class="card">
+            <div class="card-body">
+            <h5 class="card-title">Sobre a consulta:</h5>
+            <p><b>Nome:</b> {{ consultation.doctor_schedule.doctor.name }} <br>
+            <b>Especialidade:</b> {{ consultation.doctor_schedule.doctor.specialty }}<br>
+            <b>Data:</b> {{ consultation.doctor_schedule.date_schedule }} <br>
+            <b>Horário:</b> {{ consultation.doctor_schedule.available_times }}
+            </p>
+            <a href="/consultation/detail/{{ consultation.id }}/" class="btn btn-primary">Detalhar</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Primeira</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            {% endif %}
+    
+            <span class="current">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+{% endblock %}
