@@ -1,13 +1,8 @@
-from typing import Any
-from django.db.models.query import QuerySet
-from django.forms.models import BaseModelForm
-from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.db import IntegrityError
+
 from django.views.generic import (
-    CreateView, ListView, DetailView, DeleteView,
-    UpdateView
+    CreateView, ListView, DeleteView, UpdateView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 

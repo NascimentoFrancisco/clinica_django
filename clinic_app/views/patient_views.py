@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 from django.db.models import Model
 from django.contrib import messages
 from django.db.models.query import QuerySet
@@ -85,7 +85,7 @@ class UpdatePatientUserView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.POST:
-            context['user_form'] = ChangeUserForm(self.request.POST)
+            context['user_form'] = ChangeUserForm(self.request.POST, instance=self.get_object().user)
         else:
             context['user_form'] = ChangeUserForm(instance=self.get_object().user)
         return context
@@ -95,11 +95,16 @@ class UpdatePatientUserView(LoginRequiredMixin, UpdateView):
         user_form: BaseModelForm = context['user_form']
         
         with transaction.atomic():
-            user: User = user_form.save(commit=False)
-            user.save()
-
-            patient: Patient = form.save(commit=False)
-            patient.save()
+            
+            user_form = ChangeUserForm(self.request.POST, instance=self.get_object().user)
+            
+            if user_form.is_valid():
+                user_form.save()
+            else:
+                context['user_form'] = user_form
+                return self.render_to_response(context)
+            
+            form.save()
 
         return super().form_valid(form)
     

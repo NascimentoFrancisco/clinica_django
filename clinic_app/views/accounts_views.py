@@ -1,8 +1,8 @@
 from typing import Any
 from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib import messages
-from django.db.models import Model
 from django.db.models.query import QuerySet
+from django.forms.models import BaseModelForm
 from django.urls import reverse_lazy
 from django.views.generic import (
     CreateView, UpdateView, DetailView, ListView
@@ -76,8 +76,7 @@ class LoginUser(LoginView):
     template_name = 'accounts/login.html'
 
     def form_valid(self, form):
-        user = form.get_user()
-        messages.success(self.request, f'Bem vindo {user}')
+        messages.success(self.request, f'Bem vindo {form.get_user()}')
         return super().form_valid(form)
     
 
@@ -113,7 +112,7 @@ class DeactivateUserView(LoginRequiredMixin, UpdateView):
     fields = []
     success_url = reverse_lazy('list_patient_user')
 
-    def form_valid(self, form):
+    def form_valid(self, form: BaseModelForm):
         form.instance.is_active = False
         form.save()
         messages.success(self.request, 

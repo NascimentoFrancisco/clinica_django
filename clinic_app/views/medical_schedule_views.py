@@ -5,7 +5,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import (
-    CreateView, UpdateView, DeleteView, ListView, DetailView
+    CreateView, UpdateView, DeleteView, ListView
 )
 from django.contrib.auth.mixins import LoginRequiredMixin
 from clinic_app.views.accounts_views import TestMixinIsAdmin
