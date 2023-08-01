@@ -1,5 +1,6 @@
 from django.conf import settings
 from clinic_app.models import *
+from clinic_app.validators.validate_cpf import cpf_validate
 
 class Patient(models.Model):
 
@@ -7,6 +8,7 @@ class Patient(models.Model):
     patient_cpf = models.CharField(
         "CPF", max_length=11, unique=True, 
         error_messages={'unique':'Este CPF já está cadastrado no sistema.'},
+        validators=[cpf_validate],
         help_text='CPF do paciente sem pontos e traços'
     )
     phone = models.CharField(

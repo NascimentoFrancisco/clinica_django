@@ -37,16 +37,20 @@ class CreatePatientUserView(CreateView):
     def form_valid(self, form: BaseModelForm) -> HttpResponse:
         context = self.get_context_data()
         user_form: BaseModelForm = context['user_form']
+        
+        if user_form.is_valid():
+            with transaction.atomic():
+                user: User = user_form.save(commit=False)
+                user.set_password(user_form.cleaned_data['password1'])
+                user.save()
 
-        with transaction.atomic():
-            user: User = user_form.save(commit=False)
-            user.set_password(user_form.cleaned_data['password1'])
-            user.save()
-
-            patient: Patient = form.save(commit=False)
-            patient.user = user
-            patient.save()
-
+                patient: Patient = form.save(commit=False)
+                patient.user = user
+                patient.save()
+        else:
+            context['user_form'] = user_form
+            return self.render_to_response(context)
+            
         return super().form_valid(form)
 
 

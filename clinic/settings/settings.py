@@ -13,7 +13,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cpf_field',
     'crispy_forms',
     'crispy_bootstrap4',
     'clinic_app'
@@ -80,3 +79,8 @@ AUTH_USER_MODEL = 'clinic_app.User'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN = '/accounts/login/'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'clinic_app.backend.backends.ModelBackend'
+)
+
