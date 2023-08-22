@@ -4,7 +4,7 @@ from clinic_app.models.accounts import User
 
 class ModelBackend(BaseBackend):
 
-    def authenticate(self, request, username=None, password=None):
+    def authenticate(self, request, username=None, password=None) -> User:
         if not username is None:
             try:
                 user: User = User.objects.get(username=username)
